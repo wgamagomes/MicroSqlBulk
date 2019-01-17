@@ -1,2 +1,2 @@
-# MicroSqlBulk
+# µSqlBulk
 IDbConnection Extension Bulk Operations
