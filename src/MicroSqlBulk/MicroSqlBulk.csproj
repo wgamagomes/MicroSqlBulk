@@ -43,7 +43,9 @@
     <Compile Include="Attributes\ColumnAttribute.cs" />
     <Compile Include="Attributes\IgnoreAttribute.cs" />
     <Compile Include="Attributes\TableAttribute.cs" />
+    <Compile Include="Column\Column.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Row\Row.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
