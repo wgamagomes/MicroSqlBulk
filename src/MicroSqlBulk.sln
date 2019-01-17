@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroSqlBulk.Test", "MicroSqlBulk.Test\MicroSqlBulk.Test.csproj", "{9E38C534-D136-4EC2-AC36-3F9E86A9CA71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroSqlBulk", "MicroSqlBulk\MicroSqlBulk.csproj", "{90438F4C-9E17-43BC-A373-53D81EDB2A45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9E38C534-D136-4EC2-AC36-3F9E86A9CA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E38C534-D136-4EC2-AC36-3F9E86A9CA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E38C534-D136-4EC2-AC36-3F9E86A9CA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
