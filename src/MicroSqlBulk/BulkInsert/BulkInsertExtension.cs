@@ -7,7 +7,7 @@ namespace MicroSqlBulk
 {
     public static class BulkInsertExtension
     {
-        public static void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, bool closeConnection = true)
+        public static void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, bool openConnection = true, bool closeConnection = true)
         {
             var datatable = DataTableHelper.ConvertToDatatable(data);
 
@@ -23,7 +23,8 @@ namespace MicroSqlBulk
 
             bulkCopy.DestinationTableName = datatable.TableName;
 
-            dbConnection.Open();
+            if (openConnection)
+                dbConnection.Open();
 
             bulkCopy.WriteToServer(datatable);
 
