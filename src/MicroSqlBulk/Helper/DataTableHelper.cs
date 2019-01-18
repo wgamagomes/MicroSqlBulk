@@ -44,18 +44,13 @@ namespace MicroSqlBulk.Helper
             {
                 PropertyDescriptor prop = props[i];
 
-                var customAttribute = prop.Attributes[typeof(ColumnAttribute)];
-
-                //TODO: Should implement the Specification pattern.
-                if (customAttribute != null)
+                if (AttributeHelper.TryGetCustomAttribute(prop, out ColumnAttribute columnAttribute))
                 {
-                    columns.Add(new Column(((ColumnAttribute)customAttribute).Name, prop));
+                    columns.Add(new Column((columnAttribute).Name, prop));
                 }
                 else
                 {
-                    customAttribute = (IgnoreAttribute)prop.Attributes[typeof(IgnoreAttribute)];
-
-                    if (customAttribute == null)
+                    if (!AttributeHelper.TryGetCustomAttribute(prop, out IgnoreAttribute ignoreAttribute))
                     {
                         throw new Exception($"The '{prop.Name}' property should be configured through the '{nameof(ColumnAttribute)}' or it should be ignored on the POCO through the '{nameof(IgnoreAttribute)}'.");
                     }
@@ -64,6 +59,8 @@ namespace MicroSqlBulk.Helper
 
             return columns;
         }
+
+ 
 
         public static string GetTableName<TEntity>()
         {

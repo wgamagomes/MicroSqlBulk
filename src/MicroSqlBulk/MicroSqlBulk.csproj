@@ -40,6 +40,7 @@
     <Compile Include="Attributes\TableAttribute.cs" />
     <Compile Include="BulkInsert\BulkInsertExtension.cs" />
     <Compile Include="Column\Column.cs" />
+    <Compile Include="Helper\AttributeHelper.cs" />
     <Compile Include="Helper\DataTableHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row\Row.cs" />
