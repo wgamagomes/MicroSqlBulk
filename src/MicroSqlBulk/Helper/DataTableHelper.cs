@@ -46,6 +46,7 @@ namespace MicroSqlBulk.Helper
 
                 var customAttribute = prop.Attributes[typeof(ColumnAttribute)];
 
+                //TODO: Should implement the Specification pattern.
                 if (customAttribute != null)
                 {
                     columns.Add(new Column(((ColumnAttribute)customAttribute).Name, prop));
