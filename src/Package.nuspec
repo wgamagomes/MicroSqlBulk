@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MicroSqlBulk</id>
+    <version>1.0.0</version>
+    <authors>Wellington G. Gomes</authors>
+    <owners>Wellington G. Gomes</owners>
+    <licenseUrl>https://github.com/wgamagomes/MicroSqlBulk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/wgamagomes/MicroSqlBulk/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/wgamagomes/MicroSqlBulk/master/src/icon/micro.png?raw=true</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>µSqlBulk is an IDbConnection extension for bulk operations</description>  
+    <copyright>Copyright 2019</copyright>
+  </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+    <file src="MicroSqlBulk\bin\Release\MicroSqlBulk.dll" target="lib\net46"/>
+  </files>
+</package>
