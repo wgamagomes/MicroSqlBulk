@@ -24,7 +24,7 @@ The attributes can be applied on your entity class or properties like the exampl
         [Column("ID")]
         public int Id { get; set; }
 
-         [Column("XPTO")]
+        [Column("XPTO")]
         public int Xpto { get; set; }
 
         [Ignore]
@@ -33,10 +33,11 @@ The attributes can be applied on your entity class or properties like the exampl
 
 *2. Extending the IDbConnection*
 
-Extension methods are another powerful feature in the .NET and allow you to extend the functionality of existing types without the need of modifying the existing types or creating sub types from them.
+Extension methods are another powerful feature in the .NET and allow you to extend the functionality of existing types without the need of modify them or create sub types from them. 
 Here's how simple it is to extend IDbConnection in the example below:
 
     List<Entity> data = DataBuilder();
+    
     using (SqlConnection connection = new SqlConnection(connectionString))
     {
         connection.BulkInsert(data);                
