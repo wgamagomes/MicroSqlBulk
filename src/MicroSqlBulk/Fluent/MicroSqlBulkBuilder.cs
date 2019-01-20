@@ -3,9 +3,10 @@ namespace MicroSqlBulk.Fluent
 {
     public static class MicroSqlBulkBuilder
     {
-        public static MicroSqlBulkConfiguration Confugure<TEntity>()
+
+        public static FluentConfiguration Confugure<TEntity>()
         {
-            return new MicroSqlBulkConfiguration().Entity<TEntity>();
+            return new FluentConfiguration().Entity<TEntity>();
         }
     }
 }

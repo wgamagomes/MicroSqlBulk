@@ -40,8 +40,9 @@
     <Compile Include="Attributes\TableAttribute.cs" />
     <Compile Include="BulkInsert\BulkInsertExtension.cs" />
     <Compile Include="Column\Column.cs" />
+    <Compile Include="Interfaces\IMicroSqlConfiguration.cs" />
     <Compile Include="Fluent\MicroSqlBulkBuilder.cs" />
-    <Compile Include="Fluent\MicroSqlBulkConfiguration.cs" />
+    <Compile Include="Fluent\FluentConfiguration.cs" />
     <Compile Include="Helper\AttributeHelper.cs" />
     <Compile Include="Helper\DataTableHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

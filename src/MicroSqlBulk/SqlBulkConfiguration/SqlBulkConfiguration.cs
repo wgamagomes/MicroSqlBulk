@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using MicroSqlBulk.Interfaces;
+using System.Collections.Generic;
 
 
 namespace MicroSqlBulk
 {
-    public class SqlBulkEntityConfiguration
+    public class SqlBulkEntityConfiguration: IMicroSqlConfiguration
     {
         public IList<Column> Columns { get; }
         public string TableName { get; }
