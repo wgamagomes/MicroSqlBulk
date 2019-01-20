@@ -30,7 +30,8 @@ The attributes can be applied on your entity class or properties like the exampl
         [Ignore]
         public bool Ignored { get; set; }
     }  
-*2. Extending the IDbConnection *
+
+*2. Extending the IDbConnection*
 
 Extension methods are another powerful feature in the .NET and allow you to extend the functionality of existing types without the need of modifying the existing types or creating sub types from them.
 Here's how simple it is to extend IDbConnection in the example below:
@@ -49,6 +50,5 @@ Here's how simple it is to extend IDbConnection in the example below:
 
 ```void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)```
 
-###License
-
+### License
 You can read the terms of use [here](https://github.com/wgamagomes/MicroSqlBulk/blob/master/LICENSE).
