@@ -3,7 +3,7 @@
 MicroSqlBulk  or **µ**SqlBulk is an IDbConnection extension for bulk operations.
 
 ### Download
->**µ**SqlBulk is available [here](https://www.nuget.org/packages/MicroSqlBulk/) as a Nuget Package. You can install it using the Nuget Package Console window:
+>**µ**SqlBulk is available [here](https://www.nuget.org/packages/MicroSqlBulk/) as a Nuget Package. You can install it using the Nuget Package Console Window:
 
 ```PM> Install-Package MicroSqlBulk -Version 1.0.2```
 
@@ -43,13 +43,13 @@ Here's how simple it is to extend IDbConnection in the example below:
         connection.BulkInsert(data);                
     }
 
-*Default settings*
+*Default settings:*
 
-* Open Connection
-* Close connection
-* 30 seconds of timeout
+* Open Connection (true);
+* Close connection (true);
+* 30 seconds of timeout.
 
-```void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)```
+```void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true);```
 
 ### License
 You can read the terms of use [here](https://github.com/wgamagomes/MicroSqlBulk/blob/master/LICENSE).
