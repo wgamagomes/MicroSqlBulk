@@ -5,7 +5,6 @@ using System.ComponentModel;
 using IgnoreAttribute = MicroSqlBulk.Attributes.IgnoreAttribute;
 namespace MicroSqlBulk.Test.Attribute
 {
-
     public class AttributeTest
     {
         private PropertyDescriptorCollection props;
@@ -35,7 +34,7 @@ namespace MicroSqlBulk.Test.Attribute
         }
     }
 
-    [Table("FOO", "BAR")]
+    [Table("TABLE_NAME", "SCHEMA")]
     class Foo
     {
         [Column("Id")]

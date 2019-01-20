@@ -10,7 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/wgamagomes/MicroSqlBulk/master/src/icon/micro.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>µSqlBulk is an IDbConnection extension for bulk operations</description>
-    <releaseNotes>The BulkCopyTimeout was added in this release.</releaseNotes>
+    <releaseNotes>The BulkCopyTimeout was added in this release</releaseNotes>
     <copyright>Copyright 2019</copyright>
   </metadata>
   <files>
