@@ -3,7 +3,7 @@
 MicroSqlBulk  or **µ**SqlBulk is an IDbConnection extension for bulk operations.
 
 ### Download
->**µ**SqlBulk is available [here](https://www.nuget.org/packages/MicroSqlBulk/) as a Nuget Package. You can install it using the Nuget Package Console Window:
+>**µ**SqlBulk is available [here](https://www.nuget.org/packages/MicroSqlBulk/) as a Nuget Package. You can install it using the Nuget Package Manager Console:
 
 ```PM> Install-Package MicroSqlBulk -Version 1.0.2```
 
