@@ -62,6 +62,12 @@ namespace MicroSqlBulk.Test.Attribute
                 .Should()
                 .Be("TABLE_DUMMY_3");
         }
+
+        [Test]
+        public void ShouldThrowExceptionWhenTheEntityIsDefinidWithMoreThanOnePrimaryKey()
+        {
+            Assert.Throws<InvalidOperationException>(() => ColumnHelper.GetFildesInfo<TableDummy4>());
+        }
     }
 
     [Table("TABLE_DUMMY_0", "SCHEMA")]
@@ -100,6 +106,19 @@ namespace MicroSqlBulk.Test.Attribute
     {
         [Column("ID")]
         public int Id { get; set; }
+
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
+    }
+
+    [Table("TABLE_DUMMY_4")]
+    public class TableDummy4
+    {
+        [Column("ID", true)]
+        public int Id { get; set; }
+
+        [Column("ID2", true)]
+        public int Id2 { get; set; }
 
         [Column("DESCRIPTION")]
         public string Description { get; set; }
