@@ -1,8 +1,5 @@
-﻿using MicroSqlBulk.Attributes;
-using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
 
@@ -31,50 +28,7 @@ namespace MicroSqlBulk.Helper
 
             return dataTable;
         }
-
-        public static IList<Column> GetColumns<TEntity>(this List<TEntity> data)
-        {
-            IList<Column> columns;
-
-            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(TEntity));
-
-            columns = new List<Column>();
-
-            for (int i = 0; i < props.Count; i++)
-            {
-                PropertyDescriptor prop = props[i];
-
-                if (AttributeHelper.TryGetCustomAttribute(prop, out ColumnAttribute columnAttribute))
-                {
-                    columns.Add(new Column((columnAttribute).Name, prop));
-                }
-                else
-                {
-                    if (!AttributeHelper.TryGetCustomAttribute(prop, out IgnoreAttribute ignoreAttribute))
-                    {
-                        throw new Exception($"The '{prop.Name}' property should be configured through the '{nameof(ColumnAttribute)}' or it should be ignored on the POCO through the '{nameof(IgnoreAttribute)}'.");
-                    }
-                }
-            }
-
-            return columns;
-        }
-
- 
-
-        public static string GetTableName<TEntity>()
-        {
-            TableAttribute customAttribute = (TableAttribute)(typeof(TEntity).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault());
-
-            if (customAttribute == null)
-                throw new Exception($"The entity '{typeof(TEntity)}' should be configured through the '{nameof(TableAttribute)}'");
-
-            var schema = !string.IsNullOrWhiteSpace(customAttribute.Schema) ? $"{customAttribute.Schema}." : string.Empty;
-            var tableName = customAttribute.Name;
-
-            return $"{schema}{tableName}";
-        }
-
+   
         static IEnumerable<Row> GetRows<TEntity>(List<TEntity> data)
         {
             var sqlBulkEntityConfiguration = GetSqlBulkEntityConfiguration<TEntity>(data);
@@ -103,8 +57,8 @@ namespace MicroSqlBulk.Helper
 
             if (!_mapperCache.TryGetValue(nameOfT, out sqlBulkEntityConfiguration))
             {
-                var columns = data.GetColumns();
-                var tableName = GetTableName<TEntity>();
+                var columns = ColumnHelper.GetFildesInfo<TEntity>();
+                var tableName = TableHelper.GetTableName<TEntity>();
                 sqlBulkEntityConfiguration = new SqlBulkEntityConfiguration(columns, tableName);
                 _mapperCache.TryAdd(nameOfT, sqlBulkEntityConfiguration);
             }

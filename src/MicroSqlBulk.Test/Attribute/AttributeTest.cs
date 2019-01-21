@@ -1,6 +1,8 @@
-﻿using MicroSqlBulk.Attributes;
+﻿using FluentAssertions;
+using MicroSqlBulk.Attributes;
 using MicroSqlBulk.Helper;
 using NUnit.Framework;
+using System;
 using System.ComponentModel;
 using IgnoreAttribute = MicroSqlBulk.Attributes.IgnoreAttribute;
 namespace MicroSqlBulk.Test.Attribute
@@ -12,7 +14,7 @@ namespace MicroSqlBulk.Test.Attribute
         [SetUp]
         public void SetUp()
         {
-            props = TypeDescriptor.GetProperties(typeof(Foo));
+            props = TypeDescriptor.GetProperties(typeof(TableDummy0));
         }
 
         [Test]
@@ -32,10 +34,38 @@ namespace MicroSqlBulk.Test.Attribute
         {
             Assert.AreEqual(false, AttributeHelper.TryGetCustomAttribute(props[1], out IgnoreAttribute columnAttribute));
         }
+
+
+        [Test]
+        public void ShouldThrowExceptionWhenTheClassHasNoIgnoreOrColumnAttribute()
+        {
+            Action act = () => { ColumnHelper.GetFildesInfo<TableDummy1>(); };
+
+            act.Should()
+             .Throw<InvalidOperationException>();
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenTheClassHasNoTableAttribute()
+        {
+            Action act = () => { TableHelper.GetTableName<TableDummy2>(); };
+
+            act.Should()
+             .Throw<InvalidOperationException>();
+        }
+
+        [Test]
+        public void ShouldReturnTheTableName()
+        {
+            TableHelper
+                .GetTableName<TableDummy3>()
+                .Should()
+                .Be("TABLE_DUMMY_3");
+        }
     }
 
-    [Table("TABLE_NAME", "SCHEMA")]
-    class Foo
+    [Table("TABLE_DUMMY_0", "SCHEMA")]
+    class TableDummy0
     {
         [Column("Id")]
         public int Id { get; set; }
@@ -44,5 +74,34 @@ namespace MicroSqlBulk.Test.Attribute
 
         [Ignore]
         public bool Ignored { get; set; }
+    }
+
+
+    [Table("TABLE_DUMMY_1")]
+    public class TableDummy1
+    {
+        public int Id { get; set; }
+
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
+    }
+
+    public class TableDummy2
+    {
+        [Column("ID")]
+        public int Id { get; set; }
+
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
+    }
+
+    [Table("TABLE_DUMMY_3")]
+    public class TableDummy3
+    {
+        [Column("ID")]
+        public int Id { get; set; }
+
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
     }
 }
