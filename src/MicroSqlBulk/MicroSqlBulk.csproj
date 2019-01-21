@@ -38,7 +38,9 @@
     <Compile Include="Attributes\ColumnAttribute.cs" />
     <Compile Include="Attributes\IgnoreAttribute.cs" />
     <Compile Include="Attributes\TableAttribute.cs" />
-    <Compile Include="BulkInsert\BulkInsertExtension.cs" />
+    <Compile Include="MicroSqlBulkExtension\BulkInsertExtension.cs" />
+    <Compile Include="MicroSqlBulkExtension\BulkInsertExtensionObsolete.cs" />
+    <Compile Include="MicroSqlBulkExtension\BulkUpdateExtension.cs" />
     <Compile Include="Column\Column.cs" />
     <Compile Include="Interfaces\IMicroSqlConfiguration.cs" />
     <Compile Include="Fluent\MicroSqlBulkBuilder.cs" />
