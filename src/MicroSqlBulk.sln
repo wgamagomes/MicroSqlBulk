@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroSqlBulk.Test", "MicroS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroSqlBulk", "MicroSqlBulk\MicroSqlBulk.csproj", "{90438F4C-9E17-43BC-A373-53D81EDB2A45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.Dev", "Console.Dev\Console.Dev.csproj", "{D5A15BE2-B7AA-4AB7-BED3-2545DA561C7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90438F4C-9E17-43BC-A373-53D81EDB2A45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A15BE2-B7AA-4AB7-BED3-2545DA561C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A15BE2-B7AA-4AB7-BED3-2545DA561C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A15BE2-B7AA-4AB7-BED3-2545DA561C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A15BE2-B7AA-4AB7-BED3-2545DA561C7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
