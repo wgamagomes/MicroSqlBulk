@@ -66,6 +66,7 @@
     <Compile Include="Attribute\AttributeTest.cs" />
     <Compile Include="Fluent\FluentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\ScriptTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

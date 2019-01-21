@@ -38,6 +38,7 @@
     <Compile Include="Attributes\ColumnAttribute.cs" />
     <Compile Include="Attributes\IgnoreAttribute.cs" />
     <Compile Include="Attributes\TableAttribute.cs" />
+    <Compile Include="Helper\CacheHelper.cs" />
     <Compile Include="Helper\ColumnHelper.cs" />
     <Compile Include="Helper\TableHelper.cs" />
     <Compile Include="MicroSqlBulkExtension\BulkInsertExtension.cs" />
