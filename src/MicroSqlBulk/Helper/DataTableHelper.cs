@@ -8,7 +8,7 @@ namespace MicroSqlBulk.Helper
     {
         public static DataTable ConvertToDatatable<TEntity>(List<TEntity> data)
         {
-            var sqlBulkEntityConfiguration = CacheHelper.GetSqlBulkEntityConfiguration<TEntity>();
+            var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
 
             DataTable dataTable = new DataTable(sqlBulkEntityConfiguration.TableName);
 
@@ -28,7 +28,7 @@ namespace MicroSqlBulk.Helper
    
         static IEnumerable<Row> GetRows<TEntity>(List<TEntity> data)
         {
-            var sqlBulkEntityConfiguration = CacheHelper.GetSqlBulkEntityConfiguration<TEntity>();
+            var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
 
             List<object> values = new List<object>();
 

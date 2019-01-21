@@ -53,7 +53,7 @@ namespace MicroSqlBulk.Helper
 
         public static string GenerateLocalTempTableScript<TEntity>()
         {
-            var config = CacheHelper.GetSqlBulkEntityConfiguration<TEntity>();
+            var config = CacheHelper.GetConfiguration<TEntity>();
 
             StringBuilder script = new StringBuilder();
 

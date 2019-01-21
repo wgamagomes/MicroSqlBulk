@@ -6,7 +6,7 @@ namespace MicroSqlBulk.Helper
     {
         private static ConcurrentDictionary<string, SqlBulkConfiguration> _mapperCache = new ConcurrentDictionary<string, SqlBulkConfiguration>();
 
-        public static SqlBulkConfiguration GetSqlBulkEntityConfiguration<TEntity>()
+        public static SqlBulkConfiguration GetConfiguration<TEntity>()
         {
             SqlBulkConfiguration sqlBulkEntityConfiguration;
             var nameOfT = typeof(TEntity).Name;
@@ -21,6 +21,5 @@ namespace MicroSqlBulk.Helper
 
             return sqlBulkEntityConfiguration;
         }
-
     }
 }
