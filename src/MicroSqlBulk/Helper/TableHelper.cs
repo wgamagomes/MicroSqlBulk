@@ -66,7 +66,6 @@ namespace MicroSqlBulk.Helper
 
                 script.Append($"\t {column.Name} {GetSQLDataType(column.PropertyDescriptor.PropertyType)}");
 
-
                 if (i != config.Columns.Count - 1)
                 {
                     script.Append(",");
@@ -78,6 +77,42 @@ namespace MicroSqlBulk.Helper
             script.AppendLine(")");
 
             return script.ToString();
+        }
+
+        public static string GenerateSetUpdate<TEntity>()
+        {
+            var config = CacheHelper.GetConfiguration<TEntity>();
+
+            StringBuilder script = new StringBuilder();
+
+            for (int i = 0; i < config.Columns.Count; i++)
+            {
+                Column column = config.Columns[i];
+
+                if (column.IsPrimaryKey)
+                    continue;
+
+                script.Append($"{config.TableName}.{column.Name} = #{config.TableName}_TEMP.{column.Name}");
+
+                if (i != config.Columns.Count - 1)
+                {
+                    script.Append(",");
+                }
+            }
+
+            return script.ToString();
+        }
+
+        public static string GenerateOnJoin<TEntity>()
+        {
+            var config = CacheHelper.GetConfiguration<TEntity>();
+
+            Column columnPrimaryKey = config.Columns.FirstOrDefault(column => column.IsPrimaryKey);
+
+            if (columnPrimaryKey == null)
+                throw new MissingFieldException($"Unable to proceed with the operation, because the primary key of the {config.TableName} table was not found.");
+
+            return $"ON {config.TableName}.{columnPrimaryKey.Name} = #{config.TableName}_TEMP.{columnPrimaryKey.Name}";
         }
     }
 }

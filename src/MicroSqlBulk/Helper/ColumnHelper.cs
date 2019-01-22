@@ -26,7 +26,7 @@ namespace MicroSqlBulk.Helper
                     if(columnAttribute.IsPrimaryKey && containsPrimaryKey)
                         throw new InvalidOperationException($"This '{prop.Name}' can't set as primary key, because the primary key already field exists in the table configuration manager.");
                     containsPrimaryKey = columnAttribute.IsPrimaryKey;
-                    columns.Add(new Column((columnAttribute).Name, prop));
+                    columns.Add(new Column((columnAttribute).Name, prop, containsPrimaryKey));
                 }
                 else
                 {
