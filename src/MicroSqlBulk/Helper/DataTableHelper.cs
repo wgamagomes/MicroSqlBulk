@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -7,11 +6,9 @@ namespace MicroSqlBulk.Helper
 {
     public static class DataTableHelper
     {
-        private static ConcurrentDictionary<string, SqlBulkEntityConfiguration> _mapperCache = new ConcurrentDictionary<string, SqlBulkEntityConfiguration>();
-
         public static DataTable ConvertToDatatable<TEntity>(List<TEntity> data)
         {
-            var sqlBulkEntityConfiguration = GetSqlBulkEntityConfiguration(data);
+            var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
 
             DataTable dataTable = new DataTable(sqlBulkEntityConfiguration.TableName);
 
@@ -31,7 +28,7 @@ namespace MicroSqlBulk.Helper
    
         static IEnumerable<Row> GetRows<TEntity>(List<TEntity> data)
         {
-            var sqlBulkEntityConfiguration = GetSqlBulkEntityConfiguration<TEntity>(data);
+            var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
 
             List<object> values = new List<object>();
 
@@ -48,22 +45,6 @@ namespace MicroSqlBulk.Helper
 
                 yield return row;
             }
-        }
-
-        static SqlBulkEntityConfiguration GetSqlBulkEntityConfiguration<TEntity>(List<TEntity> data)
-        {
-            SqlBulkEntityConfiguration sqlBulkEntityConfiguration;
-            var nameOfT = typeof(TEntity).Name;
-
-            if (!_mapperCache.TryGetValue(nameOfT, out sqlBulkEntityConfiguration))
-            {
-                var columns = ColumnHelper.GetFildesInfo<TEntity>();
-                var tableName = TableHelper.GetTableName<TEntity>();
-                sqlBulkEntityConfiguration = new SqlBulkEntityConfiguration(columns, tableName);
-                _mapperCache.TryAdd(nameOfT, sqlBulkEntityConfiguration);
-            }
-
-            return sqlBulkEntityConfiguration;
         }
     }
 }

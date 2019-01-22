@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace MicroSqlBulk
 {
-    public class SqlBulkEntityConfiguration: IMicroSqlConfiguration
+    public class SqlBulkConfiguration: IMicroSqlConfiguration
     {
         public IList<Column> Columns { get; }
         public string TableName { get; }
 
-        public SqlBulkEntityConfiguration(IList<Column> columns, string tableName)
+        public SqlBulkConfiguration(IList<Column> columns, string tableName)
         {
             Columns = columns;
             TableName = tableName;
