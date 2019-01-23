@@ -1,7 +1,5 @@
 ﻿using MicroSqlBulk.Helper;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,7 +16,7 @@ namespace MicroSqlBulk
 
             SqlConnection conn = (SqlConnection)dbConnection;
 
-            using (SqlCommand command = new SqlCommand("", conn))
+            using (SqlCommand command = new SqlCommand(string.Empty, conn))
             {
                 try
                 {
@@ -60,7 +58,7 @@ namespace MicroSqlBulk
                 }
                 finally
                 {
-                    if (closeConnection)
+                    if (closeConnection && dbConnection.State == ConnectionState.Open)
                         conn.Close();
                 }
             }

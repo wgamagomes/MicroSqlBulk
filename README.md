@@ -10,12 +10,9 @@ MicroSqlBulk  or **µ**SqlBulk is an IDbConnection extension for bulk operations
 ### usage
 *1. Attributes*
  
-Attributes are powerful feature in the .NET that can add metadata information to your assemblies.
-
-The current version of **µ**SqlBulk only supports metadata attributes. But don't worry we're working to build the fluent version.
-
-
-The attributes can be applied on your entity class or properties like the example bellow:
+Attributes is a powerful feature in the .NET that can add metadata information to your assemblies.
+The current version of **µ**SqlBulk only supports metadata attributes. However, we're working to build the fluent version.
+Attributes can be applied on your entity class or properties as the example below shows:
 
 
     [Table("TABLE_NAME", "SCHEMA")]
@@ -33,8 +30,8 @@ The attributes can be applied on your entity class or properties like the exampl
 
 *2. Extending the IDbConnection*
 
-Extension methods are another powerful feature in the .NET and allow you to extend the functionality of existing types without the need of modify them or create sub types from them. 
-Here's how simple it is to extend IDbConnection in the example below:
+Extension methods is another powerful feature in the .NET and it allows you to extend the functionality of existing types with no need of modification them or creation of sub types out of them. 
+Here's how simple it is to extend IDbConnection, look at the example below:
 
     List<Entity> data = DataBuilder();
     

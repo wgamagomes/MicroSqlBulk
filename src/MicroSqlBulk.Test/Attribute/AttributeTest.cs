@@ -64,7 +64,7 @@ namespace MicroSqlBulk.Test.Attribute
         }
 
         [Test]
-        public void ShouldThrowExceptionWhenTheEntityIsDefinidWithMoreThanOnePrimaryKey()
+        public void ShouldThrowExceptionWhenTheEntityIsDefinedWithMoreThanOnePrimaryKey()
         {
             Assert.Throws<InvalidOperationException>(() => ColumnHelper.GetFildesInfo<TableDummy4>());
         }
