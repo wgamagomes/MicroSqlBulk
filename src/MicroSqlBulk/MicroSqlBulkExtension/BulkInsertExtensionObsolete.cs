@@ -11,28 +11,34 @@ namespace MicroSqlBulk
     {
         public static void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)
         {
-            var datatable = DataTableHelper.ConvertToDatatable(data);
+            try
+            {
+                var datatable = DataTableHelper.ConvertToDatatable(data);
 
-            SqlBulkCopy bulkCopy =
-                    new SqlBulkCopy
-                    (
-                        (SqlConnection)dbConnection,
-                        SqlBulkCopyOptions.TableLock |
-                        SqlBulkCopyOptions.FireTriggers |
-                        SqlBulkCopyOptions.UseInternalTransaction,
-                        null
-                    );
+                SqlBulkCopy bulkCopy =
+                        new SqlBulkCopy
+                        (
+                            (SqlConnection)dbConnection,
+                            SqlBulkCopyOptions.TableLock |
+                            SqlBulkCopyOptions.FireTriggers |
+                            SqlBulkCopyOptions.UseInternalTransaction,
+                            null
+                        );
 
-            bulkCopy.DestinationTableName = datatable.TableName;
-            bulkCopy.BulkCopyTimeout = timeout;
+                bulkCopy.DestinationTableName = datatable.TableName;
+                bulkCopy.BulkCopyTimeout = timeout;
 
-            if (openConnection)
-                dbConnection.Open();
+                if (openConnection)
+                    dbConnection.Open();
 
-            bulkCopy.WriteToServer(datatable);
+                bulkCopy.WriteToServer(datatable);
+            }
+            finally
+            {
 
-            if (closeConnection)
-                dbConnection.Close();
+                if (closeConnection && dbConnection.State == ConnectionState.Open)
+                    dbConnection.Close();
+            } 
         }
     }
 }

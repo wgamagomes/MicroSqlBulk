@@ -10,28 +10,37 @@ namespace MicroSqlBulk
     {
         public static void BulkInsert<TEntity>(this IDbConnection dbConnection, IEnumerable<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)
         {
-            var datatable = DataTableHelper.ConvertToDatatable(data.ToList());
 
-            SqlBulkCopy bulkCopy =
-                    new SqlBulkCopy
-                    (
-                        (SqlConnection)dbConnection,
-                        SqlBulkCopyOptions.TableLock |
-                        SqlBulkCopyOptions.FireTriggers |
-                        SqlBulkCopyOptions.UseInternalTransaction,
-                        null
-                    );
+            try
+            {
+                var datatable = DataTableHelper.ConvertToDatatable(data.ToList());
 
-            bulkCopy.DestinationTableName = datatable.TableName;
-            bulkCopy.BulkCopyTimeout = timeout;
+                SqlBulkCopy bulkCopy =
+                        new SqlBulkCopy
+                        (
+                            (SqlConnection)dbConnection,
+                            SqlBulkCopyOptions.TableLock |
+                            SqlBulkCopyOptions.FireTriggers |
+                            SqlBulkCopyOptions.UseInternalTransaction,
+                            null
+                        );
 
-            if (openConnection)
-                dbConnection.Open();
+                bulkCopy.DestinationTableName = datatable.TableName;
+                bulkCopy.BulkCopyTimeout = timeout;
 
-            bulkCopy.WriteToServer(datatable);
+                if (openConnection)
+                    dbConnection.Open();
 
-            if (closeConnection)
-                dbConnection.Close();
+                bulkCopy.WriteToServer(datatable);
+
+                if (closeConnection)
+                    dbConnection.Close();
+            }
+            finally
+            {
+                if (closeConnection && dbConnection.State == ConnectionState.Open)
+                    dbConnection.Close();
+            }
         }
     }
 }
