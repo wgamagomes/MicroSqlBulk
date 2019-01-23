@@ -29,7 +29,7 @@ namespace Console.Dev
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                
-                connection.BulkInsertOrUpdate(list, 300);
+                connection.BulkInsert(list, 300);
             }
         }
     }
