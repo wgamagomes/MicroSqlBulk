@@ -12,8 +12,9 @@ namespace MicroSqlBulk
     {
         public static void BulkUpdate<TEntity>(this IDbConnection dbConnection, IEnumerable<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)
         {
-            DataTable dt = new DataTable("DataTable");
-            dt = DataTableHelper.ConvertToDatatable(data.ToList());
+            DataTable dataTable = DataTableHelper.ConvertToDatatable(data.ToList());
+
+            string tempTableName = $"#{dataTable.TableName}_TEMP";
 
             SqlConnection conn = (SqlConnection)dbConnection;
 
@@ -21,28 +22,45 @@ namespace MicroSqlBulk
             {
                 try
                 {
-                    if(openConnection)
+                    if (openConnection)
                         conn.Open();
-                    
-                    command.CommandText = "CREATE TABLE #TmpTable(...)";
+
+                    command.CommandText = TableHelper.GenerateLocalTempTableScript<TEntity>();
                     command.ExecuteNonQuery();
-                    
-                    using (SqlBulkCopy bulkcopy = new SqlBulkCopy(conn))
-                    {
-                        bulkcopy.BulkCopyTimeout = 660;
-                        bulkcopy.DestinationTableName = "TableNameHere";
-                        bulkcopy.WriteToServer(dt);
-                        bulkcopy.BulkCopyTimeout = timeout;
-                        bulkcopy.Close();
-                    }
-                    
+
+
+                    SqlBulkCopy bulkCopy =
+                         new SqlBulkCopy
+                         (
+                             (SqlConnection)dbConnection,
+                             SqlBulkCopyOptions.TableLock |
+                             SqlBulkCopyOptions.FireTriggers |
+                             SqlBulkCopyOptions.UseInternalTransaction,
+                             null
+                         );
+
+                    bulkCopy.BulkCopyTimeout = timeout;
+                    bulkCopy.DestinationTableName = tempTableName;
+                    bulkCopy.WriteToServer(dataTable);
+                    bulkCopy.Close();
+
+                    string setUpdate = TableHelper.GenerateSetUpdate<TEntity>();
+                    string onJoin = TableHelper.GenerateOnJoin<TEntity>();
+                    string valuesUpdate = TableHelper.GenerateValuesUpdate<TEntity>();
+                    string columnsInsert = TableHelper.GenerateColumnsInsert<TEntity>();
+
                     command.CommandTimeout = timeout;
-                    command.CommandText = "UPDATE T SET ... FROM " + "TableNameHere" + " T INNER JOIN #TmpTable Temp ON ...; DROP TABLE #TmpTable;";
+                    command.CommandText = $@"MERGE INTO {dataTable.TableName} 
+                                            WITH(HOLDLOCK) USING {tempTableName}
+                                            {onJoin}
+                                            WHEN MATCHED THEN UPDATE SET {setUpdate}
+                                            WHEN NOT MATCHED BY TARGET THEN INSERT({columnsInsert}) values({valuesUpdate});
+                                            DROP TABLE {tempTableName};";
                     command.ExecuteNonQuery();
                 }
                 finally
                 {
-                    if(closeConnection)
+                    if (closeConnection)
                         conn.Close();
                 }
             }

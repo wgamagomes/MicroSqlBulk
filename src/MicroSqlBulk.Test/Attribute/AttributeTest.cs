@@ -68,6 +68,12 @@ namespace MicroSqlBulk.Test.Attribute
         {
             Assert.Throws<InvalidOperationException>(() => ColumnHelper.GetFildesInfo<TableDummy4>());
         }
+
+        [Test]
+        public void ShouldThrowExceptionWhenItDoesNotContainPrimaryKeyInTheEntityWhenUsingUpdate()
+        {
+            Assert.Throws<MissingFieldException>(() => TableHelper.GenerateOnJoin<TableDummy3>());
+        }
     }
 
     [Table("TABLE_DUMMY_0", "SCHEMA")]
