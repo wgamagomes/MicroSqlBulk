@@ -8,7 +8,7 @@ namespace MicroSqlBulk
 {
     public static partial class MicroSqlBulkExtension
     {
-        public static void BulkUpdate<TEntity>(this IDbConnection dbConnection, IEnumerable<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)
+        public static void BulkInsertOrUpdate<TEntity>(this IDbConnection dbConnection, IEnumerable<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)
         {
             DataTable dataTable = DataTableHelper.ConvertToDatatable(data.ToList());
 
