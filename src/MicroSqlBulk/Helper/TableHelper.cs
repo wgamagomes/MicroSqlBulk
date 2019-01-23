@@ -9,7 +9,7 @@ namespace MicroSqlBulk.Helper
 {
     public static class TableHelper
     {
-       
+
 
         public static string GetTableName<TEntity>()
         {
@@ -27,7 +27,7 @@ namespace MicroSqlBulk.Helper
         private static Dictionary<Type, String> _sqlDataMapper
         {
             get
-            {               
+            {
                 Dictionary<Type, String> dataMapper = new Dictionary<Type, string>();
                 dataMapper.Add(typeof(int), "BIGINT NOT NULL");
                 dataMapper.Add(typeof(int?), "BIGINT");
@@ -44,9 +44,15 @@ namespace MicroSqlBulk.Helper
                 dataMapper.Add(typeof(decimal?), "DECIMAL(18,0)");
                 dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER NOT NULL");
                 dataMapper.Add(typeof(Guid?), "UNIQUEIDENTIFIER");
-                dataMapper.Add(typeof(Enum), "int");
+
                 return dataMapper;
             }
+        }
+
+        public static bool IsNullableEnum(this Type type)
+        {
+            Type u = Nullable.GetUnderlyingType(type);
+            return (u != null) && u.IsEnum;
         }
 
         public static string GetSQLDataType(this Type type)
@@ -55,6 +61,13 @@ namespace MicroSqlBulk.Helper
             {
                 return dataType;
             }
+
+            if (IsNullableEnum(type))
+                return "INT";
+
+            if (type.IsEnum)
+                return "INT NOT NULL";
+
 
             throw new KeyNotFoundException($"The element {type.Name} doesn't  match any key in the collection.");
         }

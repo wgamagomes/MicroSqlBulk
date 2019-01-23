@@ -28,7 +28,8 @@ namespace MicroSqlBulk.Test.Script
 	 DESCRIPTION NVARCHAR(MAX),
 	 DATE DATETIME NOT NULL,
 	 FLAG BIT NOT NULL,
-	 MONEY DECIMAL(18,0) NOT NULL
+	 MONEY DECIMAL(18,0) NOT NULL,
+	 Status INT NOT NULL
 )
 ");
         }
@@ -51,5 +52,16 @@ namespace MicroSqlBulk.Test.Script
 
         [Column("MONEY")]
         public decimal Money { get; set; }
+
+        [Column("Status")]
+        public Status Status { get; set; }
+    }
+
+    public enum Status
+    {
+        Pending = 0,
+        Active = 1,
+        Inactive = 2,
+        Deleted = 3
     }
 }
