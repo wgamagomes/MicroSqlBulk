@@ -9,19 +9,15 @@ namespace MicroSqlBulk.Helper
 {
     public static class TableHelper
     {
-
-
-        public static string GetTableName<TEntity>()
+        public static void GetTableNameAndSchema<TEntity>(out string tableName, out string schema)
         {
             TableAttribute customAttribute = (TableAttribute)(typeof(TEntity).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault());
 
             if (customAttribute == null)
                 throw new InvalidOperationException($"The '{typeof(TEntity)}' entity should be configured through the '{nameof(TableAttribute)}'");
 
-            var schema = !string.IsNullOrWhiteSpace(customAttribute.Schema) ? $"{customAttribute.Schema}." : string.Empty;
-            var tableName = customAttribute.Name;
-
-            return $"{schema}{tableName}";
+             schema = !string.IsNullOrWhiteSpace(customAttribute.Schema) ? $"{customAttribute.Schema}." : string.Empty;
+             tableName = customAttribute.Name;
         }
 
         private static Dictionary<Type, String> _sqlDataMapper
@@ -78,7 +74,7 @@ namespace MicroSqlBulk.Helper
 
             StringBuilder script = new StringBuilder();
 
-            script.AppendLine($"CREATE TABLE #{config.TableName}_TEMP");
+            script.AppendLine($"CREATE TABLE {config.FullTempTableName}");
             script.AppendLine("(");
 
             for (int i = 0; i < config.Columns.Count; i++)
@@ -113,7 +109,7 @@ namespace MicroSqlBulk.Helper
                 if (column.IsPrimaryKey)
                     continue;
 
-                script.Append($"{config.TableName}.{column.Name} = #{config.TableName}_TEMP.{column.Name}");
+                script.Append($"{config.FullTableName}.{column.Name} = {config.FullTempTableName}.{column.Name}");
 
                 if (i != config.Columns.Count - 1)
                 {
@@ -133,7 +129,7 @@ namespace MicroSqlBulk.Helper
             if (columnPrimaryKey == null)
                 throw new MissingFieldException($"Unable to proceed with the operation, because the primary key of the {config.TableName} table was not found.");
 
-            return $"ON {config.TableName}.{columnPrimaryKey.Name} = #{config.TableName}_TEMP.{columnPrimaryKey.Name}";
+            return $"ON {config.FullTableName}.{columnPrimaryKey.Name} = {config.FullTempTableName}.{columnPrimaryKey.Name}";
         }
 
         public static string GenerateValuesUpdate<TEntity>()
@@ -149,7 +145,7 @@ namespace MicroSqlBulk.Helper
                 if (column.IsPrimaryKey)
                     continue;
 
-                script.Append($"#{config.TableName}_TEMP.{column.Name}");
+                script.Append($"{config.FullTempTableName}.{column.Name}");
 
                 if (i != config.Columns.Count - 1)
                 {

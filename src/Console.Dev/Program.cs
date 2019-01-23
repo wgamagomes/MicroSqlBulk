@@ -21,7 +21,7 @@ namespace Console.Dev
                     FirstName = $"FirstName {i}",
                     LastName = $"LastName {i}",
                     Address = $"Address {i}",
-                    City = $"City {i}"
+                    City = $"Cidade {i}"
 
                 });
             }

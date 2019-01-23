@@ -11,7 +11,7 @@ namespace MicroSqlBulk.Helper
         {
             var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
 
-            DataTable dataTable = new DataTable(sqlBulkEntityConfiguration.TableName);
+            DataTable dataTable = new DataTable(sqlBulkEntityConfiguration.FullTableName);
 
             var dataColumns = sqlBulkEntityConfiguration.Columns
                                 .Select(col => new DataColumn(col.Name, Nullable.GetUnderlyingType(col.PropertyDescriptor.PropertyType) ?? col.PropertyDescriptor.PropertyType))

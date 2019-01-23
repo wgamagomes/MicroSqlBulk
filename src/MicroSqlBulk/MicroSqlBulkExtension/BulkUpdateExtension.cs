@@ -12,7 +12,9 @@ namespace MicroSqlBulk
         {
             DataTable dataTable = DataTableHelper.ConvertToDatatable(data.ToList());
 
-            string tempTableName = $"#{dataTable.TableName}_TEMP";
+            var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
+
+            var tempTableName = sqlBulkEntityConfiguration.FullTempTableName;
 
             SqlConnection conn = (SqlConnection)dbConnection;
 
