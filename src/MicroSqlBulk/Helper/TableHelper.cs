@@ -114,5 +114,53 @@ namespace MicroSqlBulk.Helper
 
             return $"ON {config.TableName}.{columnPrimaryKey.Name} = #{config.TableName}_TEMP.{columnPrimaryKey.Name}";
         }
+
+        public static string GenerateValuesUpdate<TEntity>()
+        {
+            var config = CacheHelper.GetConfiguration<TEntity>();
+
+            StringBuilder script = new StringBuilder();
+
+            for (int i = 0; i < config.Columns.Count; i++)
+            {
+                Column column = config.Columns[i];
+
+                if (column.IsPrimaryKey)
+                    continue;
+
+                script.Append($"#{config.TableName}_TEMP.{column.Name}");
+
+                if (i != config.Columns.Count - 1)
+                {
+                    script.Append(",");
+                }
+            }
+
+            return script.ToString();
+        }
+
+        public static string GenerateColumnsInsert<TEntity>()
+        {
+            var config = CacheHelper.GetConfiguration<TEntity>();
+
+            StringBuilder script = new StringBuilder();
+
+            for (int i = 0; i < config.Columns.Count; i++)
+            {
+                Column column = config.Columns[i];
+
+                if (column.IsPrimaryKey)
+                    continue;
+
+                script.Append($"{column.Name}");
+
+                if (i != config.Columns.Count - 1)
+                {
+                    script.Append(",");
+                }
+            }
+
+            return script.ToString();
+        }
     }
 }

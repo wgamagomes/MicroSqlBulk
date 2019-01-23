@@ -44,12 +44,18 @@ namespace MicroSqlBulk
                     bulkCopy.WriteToServer(dataTable);
                     bulkCopy.Close();
 
-
                     string setUpdate = TableHelper.GenerateSetUpdate<TEntity>();
                     string onJoin = TableHelper.GenerateOnJoin<TEntity>();
+                    string valuesUpdate = TableHelper.GenerateValuesUpdate<TEntity>();
+                    string columnsInsert = TableHelper.GenerateColumnsInsert<TEntity>();
 
                     command.CommandTimeout = timeout;
-                    command.CommandText = $"UPDATE {dataTable.TableName} SET {setUpdate} FROM {dataTable.TableName} INNER JOIN {tempTableName} {onJoin}; DROP TABLE {tempTableName};";
+                    command.CommandText = $@"MERGE INTO {dataTable.TableName} 
+                                            WITH(HOLDLOCK) USING {tempTableName}
+                                            {onJoin}
+                                            WHEN MATCHED THEN UPDATE SET {setUpdate}
+                                            WHEN NOT MATCHED BY TARGET THEN INSERT({columnsInsert}) values({valuesUpdate});
+                                            DROP TABLE {tempTableName};";
                     command.ExecuteNonQuery();
                 }
                 finally
