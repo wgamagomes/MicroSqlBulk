@@ -31,6 +31,8 @@ namespace MicroSqlBulk.Helper
                 Dictionary<Type, String> dataMapper = new Dictionary<Type, string>();
                 dataMapper.Add(typeof(int), "BIGINT NOT NULL");
                 dataMapper.Add(typeof(int?), "BIGINT");
+                dataMapper.Add(typeof(long), "BIGINT NOT NULL");
+                dataMapper.Add(typeof(long?), "BIGINT");
                 dataMapper.Add(typeof(string), "NVARCHAR(MAX)");
                 dataMapper.Add(typeof(bool), "BIT NOT NULL");
                 dataMapper.Add(typeof(bool?), "BIT");
