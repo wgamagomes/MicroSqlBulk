@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace MicroSqlBulk
 {
-    [Obsolete("This class is deprecated, use BulkExtension instead.")]
+    [Obsolete("This class is deprecated, use MicroSqlBulkExtension instead.")]
     public static class BulkInsertExtension
     {
         public static void BulkInsert<TEntity>(this IDbConnection dbConnection, List<TEntity> data, int timeout = 30, bool openConnection = true, bool closeConnection = true)

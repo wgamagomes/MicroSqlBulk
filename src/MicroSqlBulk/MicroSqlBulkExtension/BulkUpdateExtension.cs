@@ -18,7 +18,7 @@ namespace MicroSqlBulk
 
             SqlConnection conn = (SqlConnection)dbConnection;
 
-            using (SqlCommand command = new SqlCommand("", conn))
+            using (SqlCommand command = new SqlCommand(string.Empty, conn))
             {
                 try
                 {
