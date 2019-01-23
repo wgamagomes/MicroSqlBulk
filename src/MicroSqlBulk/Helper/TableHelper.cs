@@ -44,7 +44,7 @@ namespace MicroSqlBulk.Helper
                 dataMapper.Add(typeof(decimal?), "DECIMAL(18,0)");
                 dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER NOT NULL");
                 dataMapper.Add(typeof(Guid?), "UNIQUEIDENTIFIER");
-
+                dataMapper.Add(typeof(Enum), "int");
                 return dataMapper;
             }
         }
