@@ -11,7 +11,7 @@ namespace Console.Dev
     {
         static void Main(string[] args)
         {
-            string connectionString = @"data source=localhost\SQLEXPRESS;initial catalog=HBMDM_1ST_SERVICES;persist security info=True;user id=sa;password=Sa12345MultipleActiveResultSets=True;App=EntityFramework";
+            string connectionString = @"data source=localhost\SQLEXPRESS;initial catalog=HBMDM;persist security info=True;user id=sa;password=Sa12345;MultipleActiveResultSets=True;App=EntityFramework";
             var list = new List<Persons>();
 
             for (int i = 1; i <= 1000000; i++)
@@ -28,8 +28,8 @@ namespace Console.Dev
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-               
-                connection.BulkInsert(list, 300);
+
+                connection.BulkInsertOrUpdate(list, 300);
             }
         }
     }
@@ -51,6 +51,9 @@ namespace Console.Dev
 
         [Column("City")]
         public string City { get; set; }
+
+        [Column("BirthDate")]
+        public DateTime? BirthDate { get; set; }
     }
 }
 

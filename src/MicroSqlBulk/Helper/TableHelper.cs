@@ -29,13 +29,19 @@ namespace MicroSqlBulk.Helper
             get
             {               
                 Dictionary<Type, String> dataMapper = new Dictionary<Type, string>();
-                dataMapper.Add(typeof(int), "BIGINT");
+                dataMapper.Add(typeof(int), "BIGINT NOT NULL");
+                dataMapper.Add(typeof(int?), "BIGINT");
                 dataMapper.Add(typeof(string), "NVARCHAR(MAX)");
-                dataMapper.Add(typeof(bool), "BIT");
-                dataMapper.Add(typeof(DateTime), "DATETIME");
-                dataMapper.Add(typeof(float), "FLOAT");
-                dataMapper.Add(typeof(decimal), "DECIMAL(18,0)");
-                dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER");
+                dataMapper.Add(typeof(bool), "BIT NOT NULL");
+                dataMapper.Add(typeof(bool?), "BIT");
+                dataMapper.Add(typeof(DateTime), "DATETIME NOT NULL");
+                dataMapper.Add(typeof(DateTime?), "DATETIME");
+                dataMapper.Add(typeof(float), "FLOAT NOT NULL");
+                dataMapper.Add(typeof(float?), "FLOAT");
+                dataMapper.Add(typeof(decimal), "DECIMAL(18,0) NOT NULL");
+                dataMapper.Add(typeof(decimal?), "DECIMAL(18,0)");
+                dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER NOT NULL");
+                dataMapper.Add(typeof(Guid?), "UNIQUEIDENTIFIER");
 
                 return dataMapper;
             }
