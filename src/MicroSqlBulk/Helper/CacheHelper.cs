@@ -8,19 +8,19 @@ namespace MicroSqlBulk.Helper
 
         public static SqlBulkConfiguration GetConfiguration<TEntity>()
         {
-            SqlBulkConfiguration sqlBulkEntityConfiguration;
+            SqlBulkConfiguration sqlBulkConfiguration;
             var nameOfT = typeof(TEntity).Name;
 
-            if (!_mapperCache.TryGetValue(nameOfT, out sqlBulkEntityConfiguration))
+            if (!_mapperCache.TryGetValue(nameOfT, out sqlBulkConfiguration))
             {
                 var columns = ColumnHelper.GetFildesInfo<TEntity>();
                 TableHelper.GetTableNameAndSchema<TEntity>(out string tableName, out string schema);
              
-                sqlBulkEntityConfiguration = new SqlBulkConfiguration(columns, tableName, schema);
-                _mapperCache.TryAdd(nameOfT, sqlBulkEntityConfiguration);
+                sqlBulkConfiguration = new SqlBulkConfiguration(columns, tableName, schema);
+                _mapperCache.TryAdd(nameOfT, sqlBulkConfiguration);
             }
 
-            return sqlBulkEntityConfiguration;
+            return sqlBulkConfiguration;
         }
     }
 }

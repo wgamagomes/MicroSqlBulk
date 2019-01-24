@@ -24,7 +24,7 @@ namespace MicroSqlBulk.Helper
                 if (AttributeHelper.TryGetCustomAttribute(prop, out ColumnAttribute columnAttribute))
                 {
                     if(columnAttribute.IsPrimaryKey && containsPrimaryKey)
-                        throw new InvalidOperationException($"The '{prop.Name}' property can't be used as a primary key. The primary key is already used for another property.");
+                        throw new InvalidOperationException($"'{prop.Name}' property can't be set as a primary key, entities can have only one primary key.");
                     containsPrimaryKey = columnAttribute.IsPrimaryKey;
                     columns.Add(new Column((columnAttribute).Name, prop, containsPrimaryKey));
                 }
@@ -32,7 +32,7 @@ namespace MicroSqlBulk.Helper
                 {
                     if (!AttributeHelper.TryGetCustomAttribute(prop, out IgnoreAttribute ignoreAttribute))
                     {
-                        throw new InvalidOperationException($"The '{prop.Name}' property should be configured through the '{nameof(ColumnAttribute)}' or it should be ignored on the POCO through the '{nameof(IgnoreAttribute)}'.");
+                        throw new InvalidOperationException($"'{prop.Name}' property should be configured through the '{nameof(ColumnAttribute)}' or it should be ignored on the POCO through the '{nameof(IgnoreAttribute)}'.");
                     }
                 }
             }

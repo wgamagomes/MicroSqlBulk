@@ -8,21 +8,21 @@ namespace MicroSqlBulk
     {
         public IList<Column> Columns { get; }
         public string TableName { get; }
-        public string Schema { get; }
+        public string SchemaName { get; }
 
-        public SqlBulkConfiguration(IList<Column> columns, string tableName, string schema)
+        public SqlBulkConfiguration(IList<Column> columns, string tableName, string schemaName)
         {
             Columns = columns;
             TableName = tableName;
-            Schema = schema;
+            SchemaName = schemaName;
         }
 
         public string FullTableName
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(Schema))
-                    return $"{Schema}.{TableName}";
+                if (!string.IsNullOrWhiteSpace(SchemaName))
+                    return $"{SchemaName}.{TableName}";
 
                 return TableName;
 
@@ -33,8 +33,8 @@ namespace MicroSqlBulk
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(Schema))
-                    return $"{Schema}.#{TableName}_TEMP";
+                if (!string.IsNullOrWhiteSpace(SchemaName))
+                    return $"{SchemaName}.#{TableName}_TEMP";
 
                 return $"#{TableName}_TEMP";
             }
