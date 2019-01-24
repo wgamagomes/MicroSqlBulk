@@ -16,7 +16,7 @@ namespace MicroSqlBulk.Helper
             if (customAttribute == null)
                 throw new InvalidOperationException($"The '{typeof(TEntity)}' entity should be configured through the '{nameof(TableAttribute)}'");
 
-             schema = !string.IsNullOrWhiteSpace(customAttribute.Schema) ? $"{customAttribute.Schema}." : string.Empty;
+             schema = !string.IsNullOrWhiteSpace(customAttribute.Schema) ? $"{customAttribute.Schema}" : string.Empty;
              tableName = customAttribute.Name;
         }
 

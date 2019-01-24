@@ -21,20 +21,20 @@ namespace Console.Dev
                     FirstName = $"FirstName {i}",
                     LastName = $"LastName {i}",
                     Address = $"Address {i}",
-                    City = $"Cidade {i}"
+                    City = $"City{i}",
+                    PersonID = i
 
                 });
             }
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
-                connection.BulkInsertOrUpdate(list, 300);
+                MicroSqlBulkExtension.BulkInsertOrUpdate(connection, list, 300);
             }
         }
     }
 
-    [Table("Persons")]
+    [Table("Persons", "dbo")]
     public class Persons
     {
         [Column("PersonID", true)]
