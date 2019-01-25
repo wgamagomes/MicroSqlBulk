@@ -1,16 +1,15 @@
-﻿using MicroSqlBulk.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 
 namespace MicroSqlBulk
 {
-    public class SqlBulkConfiguration : IMicroSqlConfiguration
+    public class TableInfo 
     {
         public IList<Column> Columns { get; }
         public string TableName { get; }
         public string SchemaName { get; }
 
-        public SqlBulkConfiguration(IList<Column> columns, string tableName, string schemaName)
+        public TableInfo (IList<Column> columns, string tableName, string schemaName)
         {
             Columns = columns;
             TableName = tableName;

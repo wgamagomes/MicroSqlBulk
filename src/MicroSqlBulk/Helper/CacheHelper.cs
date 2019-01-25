@@ -4,23 +4,23 @@ namespace MicroSqlBulk.Helper
 {
     public static class CacheHelper
     {
-        private static ConcurrentDictionary<string, SqlBulkConfiguration> _mapperCache = new ConcurrentDictionary<string, SqlBulkConfiguration>();
+        private static ConcurrentDictionary<string, TableInfo > _metadataCache = new ConcurrentDictionary<string, TableInfo >();
 
-        public static SqlBulkConfiguration GetConfiguration<TEntity>()
+        public static TableInfo  GetTableInfo<TEntity>()
         {
-            SqlBulkConfiguration sqlBulkConfiguration;
+            TableInfo  tableMetadata;
             var nameOfT = typeof(TEntity).Name;
 
-            if (!_mapperCache.TryGetValue(nameOfT, out sqlBulkConfiguration))
+            if (!_metadataCache.TryGetValue(nameOfT, out tableMetadata))
             {
                 var columns = ColumnHelper.GetFildesInfo<TEntity>();
                 TableHelper.GetTableNameAndSchema<TEntity>(out string tableName, out string schema);
              
-                sqlBulkConfiguration = new SqlBulkConfiguration(columns, tableName, schema);
-                _mapperCache.TryAdd(nameOfT, sqlBulkConfiguration);
+                tableMetadata = new TableInfo (columns, tableName, schema);
+                _metadataCache.TryAdd(nameOfT, tableMetadata);
             }
 
-            return sqlBulkConfiguration;
+            return tableMetadata;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MicroSqlBulk
         {
             DataTable dataTable = DataTableHelper.ConvertToDatatable(data.ToList());
 
-            var sqlBulkEntityConfiguration = CacheHelper.GetConfiguration<TEntity>();
+            var sqlBulkEntityConfiguration = CacheHelper.GetTableInfo<TEntity>();
 
             var tempTableName = sqlBulkEntityConfiguration.FullTempTableName;
 
@@ -25,7 +25,7 @@ namespace MicroSqlBulk
                     if (openConnection)
                         conn.Open();
 
-                    command.CommandText = TableHelper.GenerateLocalTempTableScript<TEntity>();
+                    command.CommandText = TableHelper.GetCreateTableScript<TEntity>(true);
                     command.ExecuteNonQuery();
 
 
@@ -44,17 +44,17 @@ namespace MicroSqlBulk
                     bulkCopy.WriteToServer(dataTable);
                     bulkCopy.Close();
 
-                    string setUpdate = TableHelper.GenerateSetUpdate<TEntity>();
-                    string onJoin = TableHelper.GenerateOnJoin<TEntity>();
-                    string valuesUpdate = TableHelper.GenerateValuesUpdate<TEntity>();
-                    string columnsInsert = TableHelper.GenerateColumnsInsert<TEntity>();
+                    string setUpdate = TableHelper.FromSourceColumnsToTargetColumns<TEntity>();
+                    string onJoin = TableHelper.GetOnClause<TEntity>();
+                    string values = TableHelper.SetThePrefixInTheColumns<TEntity>(true);
+                    string columns = TableHelper.ConcatenateColumns<TEntity>();
 
                     command.CommandTimeout = timeout;
                     command.CommandText = $@"MERGE INTO {dataTable.TableName} 
                                             WITH(HOLDLOCK) USING {tempTableName}
                                             {onJoin}
                                             WHEN MATCHED THEN UPDATE SET {setUpdate}
-                                            WHEN NOT MATCHED BY TARGET THEN INSERT({columnsInsert}) values({valuesUpdate});
+                                            WHEN NOT MATCHED BY TARGET THEN INSERT({columns}) values({values});
                                             DROP TABLE {tempTableName};";
                     command.ExecuteNonQuery();
                 }

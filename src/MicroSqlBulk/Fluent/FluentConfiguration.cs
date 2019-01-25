@@ -1,11 +1,9 @@
-﻿
-using MicroSqlBulk.Interfaces;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace MicroSqlBulk.Fluent
 {
-    public class FluentConfiguration : IMicroSqlConfiguration
+    public class FluentConfiguration 
     {
         private static ConcurrentDictionary<string, FluentConfiguration> _mapperCache = new ConcurrentDictionary<string, FluentConfiguration>();
 

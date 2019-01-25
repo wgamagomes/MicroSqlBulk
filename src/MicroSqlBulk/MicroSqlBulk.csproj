@@ -45,14 +45,13 @@
     <Compile Include="MicroSqlBulkExtension\BulkInsertExtensionObsolete.cs" />
     <Compile Include="MicroSqlBulkExtension\BulkUpdateExtension.cs" />
     <Compile Include="Column\Column.cs" />
-    <Compile Include="Interfaces\IMicroSqlConfiguration.cs" />
     <Compile Include="Fluent\MicroSqlBulkBuilder.cs" />
     <Compile Include="Fluent\FluentConfiguration.cs" />
     <Compile Include="Helper\AttributeHelper.cs" />
     <Compile Include="Helper\DataTableHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row\Row.cs" />
-    <Compile Include="SqlBulkConfiguration\SqlBulkConfiguration.cs" />
+    <Compile Include="TableInfo\TableInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

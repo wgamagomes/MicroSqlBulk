@@ -32,7 +32,7 @@ namespace MicroSqlBulk.Helper
                 {
                     if (!AttributeHelper.TryGetCustomAttribute(prop, out IgnoreAttribute ignoreAttribute))
                     {
-                        throw new InvalidOperationException($"'{prop.Name}' property should be configured through the '{nameof(ColumnAttribute)}' or it should be ignored on the POCO through the '{nameof(IgnoreAttribute)}'.");
+                        throw new InvalidOperationException($"'{prop.Name}' property should be configured through the '{nameof(ColumnAttribute)}' or it should be ignored by the POCO class through the '{nameof(IgnoreAttribute)}'.");
                     }
                 }
             }
