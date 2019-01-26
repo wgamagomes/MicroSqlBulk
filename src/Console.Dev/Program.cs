@@ -11,7 +11,7 @@ namespace Console.Dev
     {
         static void Main(string[] args)
         {
-            string connectionString = @"data source=localhost\SQLEXPRESS;initial catalog=HBMDM;persist security info=True;user id=sa;password=Sa12345;MultipleActiveResultSets=True;App=EntityFramework";
+            string connectionString = "";
             var list = new List<Persons>();
 
             for (int i = 1; i <= 1000000; i++)
