@@ -30,8 +30,8 @@ Attributes can be applied on your entity class or properties as the example belo
 
 *2. Extending the IDbConnection*
 
-Extension methods is another powerful feature in the .NET and it allows you to extend the functionality of existing types with no need of modification them or creation of sub types out of them. 
-Here's how simple it is to extend IDbConnection, look at the example below:
+Extension methods is another powerful feature in the .NET and it allows you to extend the functionality of existing types with no need of modification or creation of sub types out of them. 
+Here's how simple it is to extend IdbConnection, look at the example below:
 
     List<Entity> data = DataBuilder();
     
