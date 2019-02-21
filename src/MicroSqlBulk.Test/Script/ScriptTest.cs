@@ -8,30 +8,54 @@ namespace MicroSqlBulk.Test.Script
 {
     public class ScriptTest
     {
-
         [SetUp]
         public void SetUp()
         {
-
         }
 
         [Test]
-        public void ShouldBeReturnedTheTempTableCreationScript()
+        public void FromSourceColumnsToTargetColumnsTest()
         {
             TableHelper
-                 .GenerateLocalTempTableScript<TableDummy>()
-                 .Should()
-                 .Be(
-@"CREATE TABLE #TABLE_DUMMY_TEMP
-(
-	 ID BIGINT NOT NULL,
-	 DESCRIPTION NVARCHAR(MAX),
-	 DATE DATETIME NOT NULL,
-	 FLAG BIT NOT NULL,
-	 MONEY DECIMAL(18,0) NOT NULL,
-	 Status INT NOT NULL
-)
-");
+                .FromSourceColumnsToTargetColumns<TableDummy>()
+                .Should()
+                .Be("TABLE_DUMMY.DESCRIPTION = #TABLE_DUMMY_TEMP.DESCRIPTION,TABLE_DUMMY.DATE = #TABLE_DUMMY_TEMP.DATE,TABLE_DUMMY.FLAG = #TABLE_DUMMY_TEMP.FLAG,TABLE_DUMMY.MONEY = #TABLE_DUMMY_TEMP.MONEY,TABLE_DUMMY.STATUS = #TABLE_DUMMY_TEMP.STATUS");
+        }
+
+        [Test]
+        public void ShouldSetAPrefixForeachColumnWithTheTableName()
+        {
+            TableHelper
+                .SetThePrefixInTheColumns<TableDummy>()
+                .Should()
+                .Be("TABLE_DUMMY.DESCRIPTION,TABLE_DUMMY.DATE,TABLE_DUMMY.FLAG,TABLE_DUMMY.MONEY,TABLE_DUMMY.STATUS");
+        }
+
+        [Test]
+        public void ShouldSetAPrefixForeachColumnWithTheTempTableName()
+        {
+            TableHelper
+                .SetThePrefixInTheColumns<TableDummy>(true)
+                .Should()
+                .Be("#TABLE_DUMMY_TEMP.DESCRIPTION,#TABLE_DUMMY_TEMP.DATE,#TABLE_DUMMY_TEMP.FLAG,#TABLE_DUMMY_TEMP.MONEY,#TABLE_DUMMY_TEMP.STATUS");
+        }
+
+        [Test]
+        public void ShouldReturnConcatenatedColumnsSeparatedByCommas()
+        {
+            TableHelper
+                .ConcatenateColumns<TableDummy>()
+                .Should()
+                .Be("DESCRIPTION,DATE,FLAG,MONEY,STATUS");
+        }
+
+        [Test]
+        public void TheTemporaryTableCreationScriptShouldBeReturnedFromTheEntity()
+        {
+            TableHelper
+                .GetCreateTableScript<TableDummy>(true)
+                .Should()
+                .Be("CREATE TABLE #TABLE_DUMMY_TEMP(ID BIGINT NOT NULL,DESCRIPTION NVARCHAR(MAX),DATE DATETIME NOT NULL,FLAG BIT NOT NULL,MONEY DECIMAL(18,0) NOT NULL,STATUS INT NOT NULL)");
         }
     }
 
@@ -53,7 +77,7 @@ namespace MicroSqlBulk.Test.Script
         [Column("MONEY")]
         public decimal Money { get; set; }
 
-        [Column("Status")]
+        [Column("STATUS")]
         public Status Status { get; set; }
     }
 

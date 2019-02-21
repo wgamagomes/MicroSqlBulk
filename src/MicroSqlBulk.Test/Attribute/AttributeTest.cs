@@ -75,7 +75,7 @@ namespace MicroSqlBulk.Test.Attribute
         [Test]
         public void ShouldThrowExceptionWhenItDoesNotContainPrimaryKeyInTheEntityWhenUsingUpdate()
         {
-            Assert.Throws<MissingFieldException>(() => TableHelper.GenerateOnJoin<TableDummy3>());
+            Assert.Throws<MissingFieldException>(() => TableHelper.GetOnClause<TableDummy3>());
         }
     }
 
