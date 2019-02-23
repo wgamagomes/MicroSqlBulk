@@ -15,6 +15,6 @@
   </metadata>
   <files>
     <file src="readme.txt" target="" />
-    <file src="MicroSqlBulk\bin\Release\MicroSqlBulk.dll" target="lib\net46"/>
+    <file src="MicroSqlBulk\bin\Debug\MicroSqlBulk.dll" target="lib\net46"/>
   </files>
 </package>
